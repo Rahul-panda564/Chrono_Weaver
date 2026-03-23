@@ -1,5 +1,7 @@
 # ⏳ Chrono Weaver
 
+![Gameplay Hero](assets/gameplay.png)
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
@@ -13,6 +15,18 @@ Welcome to **Chrono Weaver**, an exciting puzzle-platformer web game! Navigate t
 - **Time-Bending Echoes**: Use past actions to solve complex puzzles.
 - **Dynamic Hazards & Gates**: Evade dangerous traps and manipulate the environment to unlock your path.
 - **Pure Web Technologies**: Built entirely with Vanilla JavaScript, HTML, and CSS. No heavy frameworks!
+- **Mobile Support**: Optimized touch controls for play on the go!
+
+## 📸 Media
+
+### Gameplay Screenshot
+![Gameplay Preview](assets/gameplay.png)
+
+### Mobile UI & Demo
+| Mobile Layout | Mobile Demo (Recording) |
+| :---: | :---: |
+| ![Mobile UI](assets/mobile_ui.png) | ![Mobile Demo](assets/mobile_demo.webp) |
+
 
 ## 🚀 How to Play
 
