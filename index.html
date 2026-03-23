@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrono Weaver</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="gameContainer">
+        <!-- Main Canvas -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- UI Overlay -->
+        <div id="uiLayer">
+            <!-- Top HUD -->
+            <div id="topHud">
+                <div class="hud-item display-box">
+                    LEVEL: <span id="levelDisplay">01</span>
+                </div>
+                <div id="coreStatus" class="core-center">
+                    <div class="core-ring"></div>
+                    <div class="core-inner"></div>
+                </div>
+                <div class="hud-item echo-meter">
+                    ECHOES: <span id="ghostCount">0</span>
+                    <div class="echo-bar">
+                        <div id="echoFill"></div>
+                    </div>
+                </div>
+                <!-- HUD Controls -->
+                <div class="hud-controls">
+                    <button class="hud-btn" onclick="game.restartLevel()" title="Restart Level (T)">&#10227; RESTART</button>
+                    <button class="hud-btn quit" onclick="game.toMainMenu()" title="Quit to Menu">&#10006; QUIT</button>
+                </div>
+            </div>
+
+            <!-- Bottom HUD (Timeline) -->
+            <div id="bottomHud">
+                <div class="timeline-container">
+                    <div class="timeline-track">
+                        <div id="timelineProgress" class="timeline-progress"></div>
+                    </div>
+                    <div id="timelineStatus">NOW</div>
+                </div>
+            </div>
+
+            <!-- Notification Area -->
+            <div id="notification" class="hidden">
+                <h3 id="notifTitle"></h3>
+                <p id="notifText"></p>
+            </div>
+        </div>
+
+        <!-- Menus -->
+        <div id="mainMenu" class="menu active">
+            <h1>CHRONO WEAVER</h1>
+            <h2>Temporal Paradox</h2>
+            <div class="menu-options">
+                <button onclick="game.startGame()">START MISSION</button>
+                <button onclick="game.showTutorial()">TUTORIAL</button>
+                <button onclick="game.showSettings()">SETTINGS</button>
+            </div>
+        </div>
+
+        <div id="pauseMenu" class="menu">
+            <h2>SYSTEM PAUSED</h2>
+            <div class="menu-options">
+                <button onclick="game.resume()">RESUME</button>
+                <button onclick="game.restartLevel()">RESTART LEVEL</button>
+                <button onclick="game.toMainMenu()">MAIN MENU</button>
+            </div>
+        </div>
+
+        <div id="levelComplete" class="menu">
+            <h2>SECTOR CLEARED</h2>
+            <p>Temporal paradox resolved.</p>
+            <div class="menu-options">
+                <button onclick="game.nextLevel()">PROCEED</button>
+            </div>
+        </div>
+
+        <div id="gameComplete" class="menu">
+            <h2>MISSION ACCOMPLISHED</h2>
+            <p>Reality successfully preserved.</p>
+            <div class="menu-options">
+                <button onclick="game.toMainMenu()">RETURN TO BASE</button>
+            </div>
+        </div>
+
+        <!-- Tutorial Menu -->
+        <div id="tutorialMenu" class="menu">
+            <h2>TEMPORAL FIELD MANUAL</h2>
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <h3>CONTROLS</h3>
+                    <p><span class="key">A / D</span> or <span class="key">← / →</span> — Move</p>
+                    <p><span class="key">SPACE</span> or <span class="key">W</span> — Jump</p>
+                    <p><span class="key">R</span> — Start / Stop Recording</p>
+                    <p><span class="key">SHIFT</span> — Rewind (Spawn Echo)</p>
+                    <p><span class="key">ESC</span> — Pause</p>
+                </div>
+                <div class="tutorial-section">
+                    <h3>MECHANICS</h3>
+                    <p>🟢 <strong>Exit Portal</strong> — Reach it to clear the level</p>
+                    <p>🔴 <strong>Record</strong> — Press R to record your movements</p>
+                    <p>👻 <strong>Echo</strong> — Press SHIFT to create a ghost that replays your recording</p>
+                    <p>🟡 <strong>Pressure Plate</strong> — Stand on it (or send an echo) to open linked gates</p>
+                    <p>🚫 <strong>Gate</strong> — Blocked until its linked plate is activated</p>
+                </div>
+            </div>
+            <div class="menu-options">
+                <button onclick="game.hideTutorial()">RETURN</button>
+            </div>
+        </div>
+
+        <!-- Settings Menu -->
+        <div id="settingsMenu" class="menu">
+            <h2>SYSTEM CONFIG</h2>
+            <div class="settings-content">
+                <div class="setting-row">
+                    <label>SFX VOLUME</label>
+                    <input type="range" id="sfxVolume" min="0" max="100" value="50" 
+                           oninput="game.audio.setSfxVolume(this.value / 100)">
+                </div>
+                <div class="setting-row">
+                    <label>MUSIC VOLUME</label>
+                    <input type="range" id="musicVolume" min="0" max="100" value="30"
+                           oninput="game.audio.setMusicVolume(this.value / 100)">
+                </div>
+            </div>
+            <div class="menu-options">
+                <button onclick="game.hideSettings()">RETURN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts (Order is important) -->
+    <script src="js/utils/Vector2.js"></script>
+    <script src="js/utils/Easing.js"></script>
+    <script src="js/utils/ShaderEffects.js"></script>
+    
+    <script src="js/core/InputManager.js"></script>
+    <script src="js/core/AudioManager.js"></script>
+    <script src="js/core/ParticleSystem.js"></script>
+    <script src="js/core/Camera.js"></script>
+    
+    <script src="js/entities/Entity.js"></script>
+    <script src="js/entities/Player.js"></script>
+    <script src="js/entities/Ghost.js"></script>
+    
+    <script src="js/systems/TimelineRecorder.js"></script>
+    
+    <script src="js/level/Tile.js"></script>
+    <script src="js/level/Mechanism.js"></script>
+    <script src="js/level/LevelData.js"></script>
+    <script src="js/level/Level.js"></script>
+    
+    <script src="js/ui/UIManager.js"></script>
+    
+    <script src="js/Game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
