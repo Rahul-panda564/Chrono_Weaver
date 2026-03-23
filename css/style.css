@@ -21,6 +21,71 @@ body {
     background: #000;
     box-shadow: 0 0 50px rgba(0, 240, 255, 0.1);
     border: 1px solid rgba(0, 240, 255, 0.2);
+    overflow: hidden;
+}
+
+/* Orientation Warning */
+#orientationOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #050510;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    text-align: center;
+    padding: 20px;
+}
+
+#orientationOverlay p {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    color: #00f0ff;
+    margin: 20px 0 10px;
+    text-shadow: 0 0 10px #00f0ff;
+}
+
+#orientationOverlay span {
+    font-size: 16px;
+    color: rgba(0, 240, 255, 0.6);
+}
+
+.rotate-icon {
+    width: 80px;
+    height: 80px;
+    border: 3px solid #00f0ff;
+    border-radius: 10px;
+    position: relative;
+    animation: rotate-device 2s ease-in-out infinite;
+}
+
+.rotate-icon::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #00f0ff;
+    border-radius: 50%;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes rotate-device {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(90deg); }
+    100% { transform: rotate(90deg); }
+}
+
+/* Show orientation warning only on small screens in portrait */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+    #orientationOverlay {
+        display: flex;
+    }
 }
 
 canvas {
@@ -478,6 +543,12 @@ button:hover::before {
 @media (pointer: coarse), (max-width: 1024px) {
     #mobileControls {
         display: flex;
+    }
+    
+    /* Hide game UI when orientation warning is showing */
+    body:has(#orientationOverlay[style*="display: flex"]) #uiLayer,
+    body:has(#orientationOverlay[style*="display: flex"]) .menu {
+        display: none;
     }
 }
 

@@ -42,6 +42,10 @@ class Game {
 
     setupEventListeners() {
         window.addEventListener('resize', () => this.handleResize());
+        window.addEventListener('orientationchange', () => {
+            // Delay slightly to allow window dimensions to update
+            setTimeout(() => this.handleResize(), 200);
+        });
         
         // Keyboard shortcuts
         window.addEventListener('keydown', (e) => {
@@ -57,6 +61,14 @@ class Game {
 
     startGame() {
         console.log('Game: Starting mission...');
+        
+        // Attempt to lock orientation to landscape on mobile
+        if (window.innerWidth < 1024 && screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(err => {
+                console.log('Orientation lock not supported or requires interaction:', err);
+            });
+        }
+
         this.currentLevel = 1;
         this.loadLevel(1);
         this.state = 'playing';
@@ -224,14 +236,33 @@ class Game {
         // Maintain aspect ratio
         const container = document.getElementById('gameContainer');
         const aspect = 1200 / 800;
-        const windowAspect = window.innerWidth / window.innerHeight;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const windowAspect = windowWidth / windowHeight;
         
+        // Check if we're on a mobile-sized device
+        const isMobile = windowWidth < 1024 || window.matchMedia('(pointer: coarse)').matches;
+
         if (windowAspect > aspect) {
-            container.style.height = '95vh';
-            container.style.width = `${95 * aspect}vh`;
+            // Screen is wider than game (Landscape)
+            const margin = isMobile ? 0 : 5; // Fill screen more on mobile
+            container.style.height = `${100 - margin}vh`;
+            container.style.width = `${(100 - margin) * aspect}vh`;
         } else {
-            container.style.width = '95vw';
-            container.style.height = `${95 / aspect}vw`;
+            // Screen is taller than game (Portrait or narrow landscape)
+            const margin = isMobile ? 0 : 5;
+            container.style.width = `${100 - margin}vw`;
+            container.style.height = `${(100 - margin) / aspect}vw`;
+        }
+
+        // Update mobile controls visibility if in portrait
+        const overlay = document.getElementById('orientationOverlay');
+        if (overlay) {
+            if (windowHeight > windowWidth && isMobile) {
+                overlay.style.display = 'flex';
+            } else {
+                overlay.style.display = 'none';
+            }
         }
     }
 }
