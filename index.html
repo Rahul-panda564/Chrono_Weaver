@@ -52,20 +52,6 @@
                 <h3 id="notifTitle"></h3>
                 <p id="notifText"></p>
             </div>
-
-            <!-- Mobile Controls (Visible only on touch devices) -->
-            <div id="mobileControls">
-                <div class="touch-group dpad">
-                    <button id="btnLeft" class="touch-btn"><span>&#8592;</span></button>
-                    <button id="btnRight" class="touch-btn"><span>&#8594;</span></button>
-                    <button id="btnJump" class="touch-btn"><span>&#8593;</span></button>
-                </div>
-                <div class="touch-group actions">
-                    <button id="btnRecord" class="touch-btn action-record"><span>REC</span></button>
-                    <button id="btnEcho" class="touch-btn action-echo"><span>ECHO</span></button>
-                    <button id="btnPause" class="touch-btn action-pause"><span>||</span></button>
-                </div>
-            </div>
         </div>
 
         <!-- Menus -->
@@ -176,5 +162,21 @@
     
     <script src="js/Game.js"></script>
     <script src="js/main.js"></script>
+
+    <!-- Mobile Controls (Outside game container) -->
+    <div id="mobileControls">
+        <div class="touch-group left">
+            <button id="btnLeft" class="touch-btn"><span>&#8592;</span></button>
+            <button id="btnRight" class="touch-btn"><span>&#8594;</span></button>
+        </div>
+        <div class="touch-group right">
+            <button id="btnJump" class="touch-btn"><span>&#8593;</span></button>
+            <div class="action-stack">
+                <button id="btnRecord" class="touch-btn action-record"><span>REC</span></button>
+                <button id="btnEcho" class="touch-btn action-echo"><span>ECHO</span></button>
+                <button id="btnPause" class="touch-btn action-pause"><span>||</span></button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
