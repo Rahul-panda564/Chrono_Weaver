@@ -459,3 +459,115 @@ button:hover::before {
     cursor: pointer;
     border: none;
 }
+
+/* Mobile Controls */
+#mobileControls {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: none; /* Hidden by default */
+    justify-content: space-between;
+    align-items: flex-end;
+    pointer-events: auto;
+    z-index: 50;
+    user-select: none;
+}
+
+/* Display on touch devices OR small screens */
+@media (pointer: coarse), (max-width: 1024px) {
+    #mobileControls {
+        display: flex;
+    }
+    #bottomHud {
+        bottom: 15px;
+        width: 40%;
+    }
+}
+
+.touch-group {
+    display: flex;
+    gap: 15px;
+}
+
+.touch-group.dpad {
+    align-items: center;
+}
+
+.touch-group.actions {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.touch-btn {
+    width: 70px;
+    height: 70px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgba(5, 5, 16, 0.6);
+    border: 2px solid rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+    color: #00f0ff;
+    font-size: 28px;
+    font-weight: bold;
+    touch-action: manipulation;
+    transition: all 0.1s;
+}
+
+.touch-btn:active {
+    background: rgba(0, 240, 255, 0.3);
+    border-color: #00f0ff;
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+    transform: scale(0.9);
+}
+
+.touch-btn span {
+    pointer-events: none;
+}
+
+#btnJump {
+    width: 85px;
+    height: 85px;
+    margin-bottom: 20px;
+}
+
+.action-record {
+    border-color: rgba(255, 0, 110, 0.4);
+    color: #ff006e;
+    font-size: 16px;
+}
+
+.action-record:active {
+    background: rgba(255, 0, 110, 0.3);
+    border-color: #ff006e;
+    box-shadow: 0 0 25px rgba(255, 0, 110, 0.5);
+}
+
+.action-echo {
+    font-size: 16px;
+}
+
+.action-pause {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    margin-bottom: 150px; /* Offset from actions */
+}
+
+/* Landscape Mode Adjustments */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .touch-btn {
+        width: 60px;
+        height: 60px;
+    }
+    #btnJump {
+        width: 70px;
+        height: 70px;
+    }
+    #mobileControls {
+        bottom: 10px;
+    }
+}

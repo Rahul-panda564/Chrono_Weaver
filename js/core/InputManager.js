@@ -2,6 +2,8 @@ class InputManager {
     constructor() {
         this.keys = {};
         this.prevKeys = {};
+        this.touches = {};
+        this.prevTouches = {};
         this.mouse = { x: 0, y: 0, down: false };
         this.gamepad = null;
 
@@ -17,6 +19,7 @@ class InputManager {
 
         this.setupListeners();
         this.setupGamepad();
+        this.setupTouchListeners();
     }
 
     setupListeners() {
@@ -44,6 +47,38 @@ class InputManager {
         window.addEventListener('mouseup', () => this.mouse.down = false);
     }
 
+    setupTouchListeners() {
+        const touchMappings = {
+            'btnLeft': 'moveLeft',
+            'btnRight': 'moveRight',
+            'btnJump': 'jump',
+            'btnRecord': 'record',
+            'btnEcho': 'rewind',
+            'btnPause': 'pause'
+        };
+
+        Object.entries(touchMappings).forEach(([btnId, action]) => {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                // Use pointer events to handle both mouse and touch on the buttons
+                btn.addEventListener('pointerdown', (e) => {
+                    e.preventDefault();
+                    this.touches[action] = true;
+                });
+                btn.addEventListener('pointerup', (e) => {
+                    e.preventDefault();
+                    this.touches[action] = false;
+                });
+                btn.addEventListener('pointerleave', (e) => {
+                    e.preventDefault();
+                    this.touches[action] = false;
+                });
+                // Prevent context menu on long press
+                btn.addEventListener('contextmenu', (e) => e.preventDefault());
+            }
+        });
+    }
+
     setupGamepad() {
         window.addEventListener('gamepadconnected', (e) => {
             this.gamepad = e.gamepad;
@@ -52,11 +87,14 @@ class InputManager {
     }
 
     isPressed(action) {
+        if (this.touches[action]) return true;
         const keys = this.bindings[action];
         return keys.some(key => this.keys[key]);
     }
 
     justPressed(action) {
+        if (this.touches[action] && !this.prevTouches[action]) return true;
+        
         const keys = this.bindings[action];
         return keys.some(key => {
             const currentlyPressed = this.keys[key] || false;
@@ -66,8 +104,9 @@ class InputManager {
     }
 
     update() {
-        // Store previous state
+        // Store previous states
         this.prevKeys = { ...this.keys };
+        this.prevTouches = { ...this.touches };
 
         // Update gamepad if connected
         if (this.gamepad) {
@@ -80,4 +119,4 @@ class InputManager {
             }
         }
     }
-}
+}
