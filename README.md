@@ -1,56 +1,225 @@
-# ⏳ Chrono Weaver
+<p align="center">
+	<img src="assets/mobile_demo.webp" alt="Chrono Weaver Demo" width="100%" />
+</p>
 
-![Gameplay Hero](assets/gameplay.png)
+<h1 align="center">Chrono Weaver: Temporal Paradox</h1>
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+<p align="center">
+	A cinematic timeline puzzle-platformer built with pure web tech.<br />
+	Record the present. Rewind the past. Solve the impossible.
+</p>
 
-Welcome to **Chrono Weaver**, an exciting puzzle-platformer web game! Navigate through thoughtfully designed levels, utilize time-bending mechanics like *echoes*, dodge hazards, unlock gates, and conquer challenges that require sharp problem-solving skills to progress.
+<p align="center">
+	<img src="https://img.shields.io/badge/Engine-HTML5%20Canvas-e34f26?style=for-the-badge&logo=html5&logoColor=white" alt="Engine" />
+	<img src="https://img.shields.io/badge/Code-Vanilla%20JavaScript-f7df1e?style=for-the-badge&logo=javascript&logoColor=000" alt="JavaScript" />
+	<img src="https://img.shields.io/badge/UI-CSS3-1572b6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+	<img src="https://img.shields.io/badge/License-MIT-3da639?style=for-the-badge" alt="MIT License" />
+</p>
 
-## ✨ Features
+---
 
-- **Progressive Difficulty**: Multiple levels that introduce new challenges as you advance.
-- **Time-Bending Echoes**: Use past actions to solve complex puzzles.
-- **Dynamic Hazards & Gates**: Evade dangerous traps and manipulate the environment to unlock your path.
-- **Pure Web Technologies**: Built entirely with Vanilla JavaScript, HTML, and CSS. No heavy frameworks!
-- **Mobile Support**: Optimized touch controls for play on the go!
+## Table of Contents
 
-## 📸 Media
+- [Project Snapshot](#project-snapshot)
+- [Visual Showcase](#visual-showcase)
+- [Gameplay Pillars](#gameplay-pillars)
+- [How It Plays](#how-it-plays)
+- [Controls](#controls)
+- [Run Locally](#run-locally)
+- [Architecture](#architecture)
+- [Roadmap](#roadmap)
+- [Release Notes](#release-notes)
+- [License](#license)
 
-### Gameplay Screenshot
-![Gameplay Preview](assets/gameplay.png)
+---
 
-### Mobile UI & Demo
-| Mobile Layout | Mobile Demo (Recording) |
-| :---: | :---: |
-| ![Mobile UI](assets/mobile_ui.png) | ![Mobile Demo](assets/mobile_demo.webp) |
+## Project Snapshot
 
+Chrono Weaver is a 2D puzzle-platformer where time is your primary tool.
 
-## 🚀 How to Play
+Instead of brute-force movement challenges, each sector asks you to choreograph timeline actions:
 
-Since the game uses native web features, it can be tested easily by running a simple local web server. 
+- Record movement paths.
+- Spawn echoes that replay those paths.
+- Hold pressure plates with ghosts while your present self advances.
+- Manage timing, hazards, and gate sequencing across handcrafted levels.
 
-### Prerequisites
-You only need [Python](https://www.python.org/) or any basic static file server installed on your system.
+The result is a clean but deep loop that rewards planning, rhythm, and experimentation.
 
-### Steps
-1. Clone or download this repository.
-2. Open a terminal and navigate to the project directory:
-   ```bash
-   cd path/to/Chrono_Weaver
-   ```
-3. Start a local server. If you have Python installed, you can simply run:
-   ```bash
-   python -m http.server 8000
-   ```
-4. Open your web browser and go to your **localhost** port (e.g. `http://localhost:8000`).
+---
 
-## 🎮 Game Controls
-- **Movement**: `W`, `A`, `S`, `D` or `Arrow Keys` (Adjust based on your game settings!)
-- **Actions**: `Spacebar` or specific keys designed for the *Echo* mechanics.
+## Portfolio Value
 
-## 📄 License
+This project demonstrates practical game-engine thinking using only vanilla JavaScript.
 
-This project is open-source and licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
+- Systems Design: deterministic record/rewind loop with replayable ghost entities.
+- Gameplay Engineering: puzzle readability, progression pacing, and fail-state recovery.
+- UI/UX Delivery: responsive HUD, menu flow, and touch-first control overlays.
+- Technical Discipline: modular folder architecture and maintainable subsystem boundaries.
+
+If you are reviewing this as a hiring manager or collaborator, Chrono Weaver showcases end-to-end ownership from gameplay concept to polished browser delivery.
+
+---
+
+## Visual Showcase
+
+### Main Gameplay View
+
+![Gameplay Screenshot](assets/gameplay.png)
+
+### Mobile Interface
+
+![Mobile UI Screenshot](assets/mobile_ui.png)
+
+### In-Action Preview
+
+![Mobile Gameplay Demo](assets/mobile_demo.webp)
+
+---
+
+## Gameplay Pillars
+
+### 1) Temporal Recording
+
+Capture your actions in real time and convert them into replayable ghost logic.
+
+### 2) Echo-Oriented Puzzle Solving
+
+Echoes can operate mechanisms while you traverse alternate routes.
+
+### 3) Escalating Sector Design
+
+10 progressive levels introduce multi-gate chains, vertical routing, and hazard pressure.
+
+### 4) Readable Sci-Fi HUD
+
+Live level data, timeline status, and echo capacity are always visible in a compact interface.
+
+### 5) Multi-Input Support
+
+Keyboard, touch controls, and gamepad mappings keep play accessible across desktop and mobile.
+
+---
+
+## How It Plays
+
+1. Assess the room, then identify gate and plate dependencies.
+2. Press record and perform a path your echo will later replay.
+3. Trigger rewind to spawn a ghost from the recording.
+4. Use the ghost to hold mechanisms while you take a new route.
+5. Reach the exit portal to complete the sector.
+
+Practical constraints:
+
+- Echo capacity: 5 active ghosts.
+- Recording cap: about 10 seconds per capture window.
+
+---
+
+## Controls
+
+### Keyboard
+
+| Action | Input |
+|---|---|
+| Move Left | A or Left Arrow |
+| Move Right | D or Right Arrow |
+| Jump | Space, W, or Up Arrow |
+| Record Start/Stop | R |
+| Rewind / Spawn Echo | Shift or Enter |
+| Pause | Esc or P |
+| Restart Current Level | T |
+
+### Mobile Touch
+
+| Action | Button |
+|---|---|
+| Move | Left and Right arrows |
+| Jump | Up arrow |
+| Record | REC |
+| Echo Spawn | ECHO |
+| Pause | || |
+
+---
+
+## Run Locally
+
+### Option 1: Python static server
+
+```bash
+cd Chrono_Weaver
+python -m http.server 8000
+```
+
+Open http://localhost:8000 in your browser.
+
+### Option 2: VS Code Live Server
+
+1. Open the repository in VS Code.
+2. Install Live Server.
+3. Launch index.html with Live Server.
+
+---
+
+## Architecture
+
+```text
+Chrono_Weaver/
+|- index.html
+|- css/
+|  |- style.css
+|- js/
+|  |- Game.js                # Main loop, state machine, level flow
+|  |- main.js                # Bootstrapping
+|  |- core/                  # Input, camera, particles, audio
+|  |- entities/              # Player, ghost, entity base
+|  |- systems/               # Timeline recorder and replay logic
+|  |- level/                 # Tiles, mechanisms, level data and loader
+|  |- ui/                    # HUD, menus, notifications
+|  |- utils/                 # Vector math, easing, shader helpers
+|- assets/
+|- README.md
+```
+
+---
+
+## Roadmap
+
+- Add speedrun mode with sector timers.
+- Add challenge modifiers (limited echoes, no-rewind sectors).
+- Add level editor format for community puzzles.
+- Add save slot profiles and progression summary.
+
+---
+
+## Release Notes
+
+### v1.0.0 - Temporal Core Online
+
+- Shipped complete core gameplay loop.
+- Added 10 playable sectors with progressive puzzle complexity.
+- Added recording, rewind, and ghost replay systems.
+- Added desktop and mobile control schemes.
+- Added HUD overlays, menus, and in-game tutorial panel.
+
+### v1.1.0 - Presentation Pass
+
+- Upgraded GitHub project documentation with detailed showcase README.
+- Added structured gameplay explanation, controls tables, and roadmap.
+
+---
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## Contributing
+
+Suggestions, issue reports, and gameplay ideas are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes with clear messages.
+4. Open a pull request describing the improvement.
