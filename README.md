@@ -16,6 +16,12 @@
 	<img src="https://img.shields.io/badge/License-MIT-3da639?style=for-the-badge" alt="MIT License" />
 </p>
 
+<p align="center">
+	<a href="https://rahul-panda564.github.io/Chrono_Weaver/">
+		<img src="https://img.shields.io/badge/Visit%20Website-Play%20Chrono%20Weaver-00c2ff?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Visit Website" />
+	</a>
+</p>
+
 ---
 
 ## Table of Contents
@@ -24,6 +30,7 @@
 - [For Recruiters](#for-recruiters)
 - [Role Fit Mapping](#role-fit-mapping)
 - [Tech Stack](#tech-stack)
+- [Live Demo](#live-demo)
 - [Screenshots](#screenshots)
 - [Media Update Workflow](#media-update-workflow)
 - [Gameplay Pillars](#gameplay-pillars)
@@ -83,6 +90,12 @@ If you are reviewing this repository for internships or roles, this project high
 - Vanilla JavaScript (ES6 classes, modular folder structure)
 - CSS3 for HUD, menu states, and responsive mobile controls
 - No external game engine
+
+---
+
+## Live Demo
+
+- Visit Website: [Play Chrono Weaver](https://rahul-panda564.github.io/Chrono_Weaver/)
 
 ---
 
