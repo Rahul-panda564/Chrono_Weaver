@@ -5,19 +5,34 @@ param(
     [int]$Width = 960
 )
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
 if (-not (Get-Command ffmpeg -ErrorAction SilentlyContinue)) {
     Write-Error "ffmpeg is not installed or not available in PATH."
     exit 1
 }
 
-if (-not (Test-Path $InputFile)) {
+if (-not (Test-Path -Path $InputFile)) {
     Write-Error "Input file not found: $InputFile"
     exit 1
 }
 
-$vf = 'fps=' + $Fps + ',scale=' + $Width + ':-1:flags=lanczos'
+$vf = "fps=$Fps,scale=$Width`:-1`:flags=lanczos"
 
-ffmpeg -y -i $InputFile -vf $vf -loop 0 -an $OutputFile
+$ffmpegArgs = @(
+    '-y'
+    '-i'
+    $InputFile
+    '-vf'
+    $vf
+    '-loop'
+    '0'
+    '-an'
+    $OutputFile
+)
+
+& ffmpeg @ffmpegArgs
 
 if ($LASTEXITCODE -ne 0) {
     Write-Error "ffmpeg failed while creating $OutputFile"
