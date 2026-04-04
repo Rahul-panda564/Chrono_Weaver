@@ -22,8 +22,10 @@
 
 - [Project Snapshot](#project-snapshot)
 - [For Recruiters](#for-recruiters)
+- [Role Fit Mapping](#role-fit-mapping)
 - [Tech Stack](#tech-stack)
 - [Screenshots](#screenshots)
+- [Media Update Workflow](#media-update-workflow)
 - [Gameplay Pillars](#gameplay-pillars)
 - [How It Plays](#how-it-plays)
 - [Controls](#controls)
@@ -64,6 +66,17 @@ If you are reviewing this repository for internships or roles, this project high
 
 ---
 
+## Role Fit Mapping
+
+| Target Role | What This Repo Demonstrates |
+|---|---|
+| Frontend Developer Intern | Real-time state updates, responsive UI layers, event-driven input handling, and rendering performance awareness |
+| JavaScript Developer | OOP architecture in plain JS, system decomposition, clean game-loop orchestration, and browser API usage |
+| Gameplay Programmer Intern | Deterministic record/replay mechanic, level progression design, player feedback loops, and puzzle systems thinking |
+| Full Stack Intern (Portfolio Signal) | Product ownership from concept to shipped build, documentation clarity, and maintainable project structure |
+
+---
+
 ## Tech Stack
 
 - HTML5 Canvas rendering
@@ -101,6 +114,55 @@ If you are reviewing this as a hiring manager or collaborator, Chrono Weaver sho
 ![Mobile Gameplay Demo](assets/mobile_demo.webp)
 
 > Tip: if images do not render on GitHub, verify the `assets/` folder and file names are unchanged.
+
+---
+
+## Media Update Workflow
+
+Use this process to keep your GitHub visuals fresh after gameplay or UI updates.
+
+### 1) Capture New Screenshots
+
+- Desktop gameplay: save as `assets/gameplay.png`
+- Mobile controls view: save as `assets/mobile_ui.png`
+
+Recommended export:
+
+- PNG format
+- 16:9 framing
+- Keep width between 1280 and 1920 for GitHub readability
+
+### 2) Record Demo Clip
+
+- Record 8 to 12 seconds of gameplay as MP4 (for example, with OBS)
+- Save source clip as `assets/demo_source.mp4` (optional local source)
+
+### 3) Convert MP4 to WebP (lightweight animation)
+
+Using ffmpeg directly:
+
+```bash
+ffmpeg -i assets/demo_source.mp4 -vf "fps=15,scale=960:-1:flags=lanczos" -loop 0 -an assets/mobile_demo.webp
+```
+
+Or run the bundled script:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/update-demo-webp.ps1
+```
+
+### 4) Validate in README
+
+- Confirm `assets/mobile_demo.webp` renders on GitHub
+- Ensure screenshot file names are unchanged to avoid broken links
+
+### 5) Commit Media Refresh
+
+```bash
+git add assets/gameplay.png assets/mobile_ui.png assets/mobile_demo.webp README.md
+git commit -m "docs: refresh portfolio screenshots and demo media"
+git push origin main
+```
 
 ---
 
