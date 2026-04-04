@@ -8,17 +8,38 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-if (-not (Get-Command ffmpeg -ErrorAction SilentlyContinue)) {
-    Write-Error "ffmpeg is not installed or not available in PATH."
+$ffmpegCommand = Get-Command ffmpeg -ErrorAction SilentlyContinue
+$ffmpegExe = $null
+
+if ($ffmpegCommand) {
+    $ffmpegExe = $ffmpegCommand.Source
+} else {
+    $wingetPackagesDir = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
+    if (Test-Path -Path $wingetPackagesDir) {
+        $candidate = Get-ChildItem -Path $wingetPackagesDir -Directory -Filter 'Gyan.FFmpeg*' -ErrorAction SilentlyContinue |
+            ForEach-Object {
+                Get-ChildItem -Path $_.FullName -Recurse -Filter 'ffmpeg.exe' -File -ErrorAction SilentlyContinue | Select-Object -First 1
+            } |
+            Select-Object -First 1
+
+        if ($candidate) {
+            $ffmpegExe = $candidate.FullName
+        }
+    }
+}
+
+if (-not $ffmpegExe) {
+    Write-Error 'ffmpeg is not installed or not available in PATH.'
     exit 1
 }
 
 if (-not (Test-Path -Path $InputFile)) {
-    Write-Error "Input file not found: $InputFile"
+    Write-Error ('Input file not found {0}' -f $InputFile)
     exit 1
 }
 
-$vf = "fps=$Fps,scale=$Width`:-1`:flags=lanczos"
+$colon = [char]58
+$vf = ('fps={0},scale={1}{2}-1{2}flags=lanczos' -f $Fps, $Width, $colon)
 
 $ffmpegArgs = @(
     '-y'
@@ -32,11 +53,11 @@ $ffmpegArgs = @(
     $OutputFile
 )
 
-& ffmpeg @ffmpegArgs
+& $ffmpegExe @ffmpegArgs
 
 if ($LASTEXITCODE -ne 0) {
-    Write-Error "ffmpeg failed while creating $OutputFile"
+    Write-Error ('ffmpeg failed while creating {0}' -f $OutputFile)
     exit $LASTEXITCODE
 }
 
-Write-Host "Created $OutputFile from $InputFile"
+Write-Host ('Created {0} from {1}' -f $OutputFile, $InputFile)
