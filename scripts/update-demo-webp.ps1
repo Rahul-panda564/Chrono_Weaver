@@ -15,7 +15,7 @@ if (-not (Test-Path $InputFile)) {
     exit 1
 }
 
-$vf = "fps=$Fps,scale=$Width:-1:flags=lanczos"
+$vf = 'fps=' + $Fps + ',scale=' + $Width + ':-1:flags=lanczos'
 
 ffmpeg -y -i $InputFile -vf $vf -loop 0 -an $OutputFile
 
