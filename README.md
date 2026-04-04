@@ -21,7 +21,9 @@
 ## Table of Contents
 
 - [Project Snapshot](#project-snapshot)
-- [Visual Showcase](#visual-showcase)
+- [For Recruiters](#for-recruiters)
+- [Tech Stack](#tech-stack)
+- [Screenshots](#screenshots)
 - [Gameplay Pillars](#gameplay-pillars)
 - [How It Plays](#how-it-plays)
 - [Controls](#controls)
@@ -48,6 +50,29 @@ The result is a clean but deep loop that rewards planning, rhythm, and experimen
 
 ---
 
+## For Recruiters
+
+This project is positioned as a portfolio-ready gameplay engineering sample.
+
+- Designed and shipped a complete browser game loop from concept to playable release.
+- Implemented timeline recording and deterministic ghost replay for puzzle solving.
+- Built a modular codebase with clear boundaries across entities, systems, UI, and level logic.
+- Delivered cross-device accessibility with keyboard, touch, and partial gamepad support.
+- Authored visual documentation and architecture notes suitable for technical review.
+
+If you are reviewing this repository for internships or roles, this project highlights practical JavaScript problem solving, gameplay system design, and product-level polish.
+
+---
+
+## Tech Stack
+
+- HTML5 Canvas rendering
+- Vanilla JavaScript (ES6 classes, modular folder structure)
+- CSS3 for HUD, menu states, and responsive mobile controls
+- No external game engine
+
+---
+
 ## Portfolio Value
 
 This project demonstrates practical game-engine thinking using only vanilla JavaScript.
@@ -61,7 +86,7 @@ If you are reviewing this as a hiring manager or collaborator, Chrono Weaver sho
 
 ---
 
-## Visual Showcase
+## Screenshots
 
 ### Main Gameplay View
 
@@ -74,6 +99,8 @@ If you are reviewing this as a hiring manager or collaborator, Chrono Weaver sho
 ### In-Action Preview
 
 ![Mobile Gameplay Demo](assets/mobile_demo.webp)
+
+> Tip: if images do not render on GitHub, verify the `assets/` folder and file names are unchanged.
 
 ---
 
